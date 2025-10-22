@@ -26,5 +26,5 @@ stages:
                 displayName: Prerequisite Stage
                 deploymentScope: Subscription
                 serviceConnection: $(serviceConnection)
-                iacMainFileName: oci_artifact_capability.prerequisite.bicep
+                iacMainFileName: oci_artifact_capability.bicep
                 iacParameterFileName: /parameters/oci_artifact_capability.parameters.json
