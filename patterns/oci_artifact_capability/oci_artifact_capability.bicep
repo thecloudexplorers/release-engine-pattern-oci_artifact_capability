@@ -1,7 +1,8 @@
 metadata resources = {
   version: '0.1.0'
-  author: '<Author Name>'
-  description: '<Description>'
+  author: 'Wesley Camargo'
+  company: 'The Cloud Explorers'
+  description: 'Deploys a resource group and an Azure Container Registry using Azure Verified Modules.'
 }
 
 // WORKLOAD CONFIGURATIONS
