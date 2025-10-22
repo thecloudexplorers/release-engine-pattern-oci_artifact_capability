@@ -2,7 +2,15 @@ parameters:
   - name: platformWorkloadSettings
     type: object
 
+variables:
+  # Workload dedicated SPN of the lowest environment.
+  # It is used for validate the pipeline run, and will be overridden by the correct SPN of each environment on runtime
+  # Can be set on configuration level parameters or as environment variable in the pipeline execution context
+  - name: serviceConnection
+    value: ServiceConnection 
+
 stages:
+
   - template: /common/pipelines/01-orchestrators/alz.devops.workload.orchestrator.yml@release-engine-core
     parameters:
       workloadSettings:
@@ -11,12 +19,12 @@ stages:
         environments: ${{ parameters.platformWorkloadSettings.environments }}
         workloadArtifactsPath: /patterns/oci_artifact_capability
         stages:
-          # It is possible to create stages dynamically, defined at configuration level, currently used for Subscription Vending
-          # - ${{ each collectionItem in parameters.platformWorkloadSettings.collection }}:
+
           - infrastructure:
               iac:
-                name: oci_artifact_capability
+                name: prerequisite_stage
+                displayName: Prerequisite Stage
                 deploymentScope: Subscription
                 serviceConnection: $(serviceConnection)
-                iacMainFileName: workload.bicep
-                iacParameterFileName: ${{ parameters.platformWorkloadSettings.iacParameterFileName }}
+                iacMainFileName: oci_artifact_capability.prerequisite.bicep
+                iacParameterFileName: /parameters/oci_artifact_capability.parameters.json
