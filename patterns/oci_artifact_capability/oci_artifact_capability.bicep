@@ -48,7 +48,10 @@ module resourceGroup 'br/public:avm/res/resources/resource-group:0.4.2' = {
 
 module containerRegistry 'br/public:avm/res/container-registry/registry:0.9.3' = {
   name: deploymentNames.containerRegistry
-  scope: az.resourceGroup(resourceGroup.name)
+  scope: az.resourceGroup(resourceGroupName)
+  dependsOn: [
+    resourceGroup
+  ]
   params: {
     name: containerRegistryName
     acrSku: acrSku
